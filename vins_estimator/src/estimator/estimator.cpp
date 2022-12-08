@@ -245,7 +245,10 @@ void Estimator::processImage(map<int, Eigen::Matrix<double, 7, 1>> &image,
                     solveOdometry();
                     slideWindow();
                     f_manager.removeFailures();
-                    ROS_INFO("Initialization finish!");
+                    ROS_INFO("Initialization Timestamp: %f", Headers[0]);
+                    pubInitHeader(Headers[0]);
+                    ROS_INFO("Initialization finish at : %f", header.stamp.toSec());
+
                     last_R  = Rs[WINDOW_SIZE];
                     last_P  = Ps[WINDOW_SIZE];
                     last_R0 = Rs[0];
@@ -299,6 +302,8 @@ void Estimator::processImage(map<int, Eigen::Matrix<double, 7, 1>> &image,
                     updateLatestStates();
                     solver_flag = NON_LINEAR;
                     slideWindow();
+                    ROS_INFO("Initialization Timestamp: %f", Headers[0]);
+                    pubInitHeader(Headers[0]);
                     ROS_INFO("Initialization finish!");
                 }
             }
@@ -1067,13 +1072,13 @@ bool Estimator::relativePose(Matrix3d &relative_R, Vector3d &relative_T, int &l)
                 sum_parallax    = sum_parallax + parallax;
             }
             average_parallax = 1.0 * sum_parallax / int(corres.size());
-            if (average_parallax * 460 > 30 &&
+            if (average_parallax * 325.9 > 30 &&
                 m_estimator.solveRelativeRT_PNP(corres, relative_R, relative_T))
             {
                 l = i;
                 ROS_DEBUG("average_parallax %f choose l %d and newest frame to "
                           "triangulate the whole structure",
-                          average_parallax * 460, l);
+                          average_parallax * 325.9, l);
                 return true;
             }
         }
@@ -1375,7 +1380,7 @@ void Estimator::optimization()
 
     //构建残差
     /*******先验残差*******/
-    if (last_marginalization_info)
+    if (last_marginalization_info && last_marginalization_info->valid)
     {
         // construct new marginlization_factor
         MarginalizationFactor *marginalization_factor =
@@ -1541,7 +1546,7 @@ void Estimator::optimization()
         vector2double();
 
         // 先验部分，基于先验残差，边缘化滑窗中第0帧时刻的状态向量
-        if (last_marginalization_info)
+        if (last_marginalization_info && last_marginalization_info->valid)
         {
             vector<int> drop_set;
             for (int i = 0; i < static_cast<int>(last_marginalization_parameter_blocks.size()); i++)
@@ -1670,7 +1675,7 @@ void Estimator::optimization()
         {
             MarginalizationInfo *marginalization_info = new MarginalizationInfo();
             vector2double();
-            if (last_marginalization_info)
+            if (last_marginalization_info && last_marginalization_info->valid)
             {
                 vector<int>
                     drop_set;  //记录需要丢弃的变量在last_marginalization_parameter_blocks中的索引

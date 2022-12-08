@@ -6,6 +6,7 @@ set(CMAKE_BUILD_TYPE "Release")
 # set(CMAKE_BUILD_TYPE "Debug")
 set(CMAKE_CXX_FLAGS "-std=c++14")
 set(CMAKE_CXX_FLAGS_RELEASE "-O3 -Wall -g")
+set(OpenCV_DIR "/opt/ros/noetic/share/opencv_apps")
 
 find_package(catkin REQUIRED COMPONENTS
         roscpp
@@ -22,15 +23,16 @@ find_package(catkin REQUIRED COMPONENTS
         nodelet
         )
         
-find_package(OpenCV REQUIRED)
+find_package(OpenCV 4.2 REQUIRED)
 
-# message(WARNING "OpenCV_VERSION: ${OpenCV_VERSION}")
+message(WARNING "OpenCV_VERSION: ${OpenCV_VERSION}")
 
 find_package(Ceres REQUIRED)
 
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 find_package(Eigen3)
 include_directories(
+        ${OpenCV_INCLUDE_DIRS}
         ${catkin_INCLUDE_DIRS}
         ${CERES_INCLUDE_DIRS}
         ${EIGEN3_INCLUDE_DIR}

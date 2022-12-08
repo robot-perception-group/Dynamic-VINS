@@ -24,6 +24,8 @@ ros::Publisher pub_delta_t;
 
 ros::Publisher pub_match, pub_semantic;
 
+ros::Publisher pub_map_init;
+
 CameraPoseVisualization cameraposevisual(0, 1, 0, 1);
 CameraPoseVisualization keyframebasevisual(0.0, 0.0, 1.0, 1.0);
 static double           sum_of_path = 0;
@@ -58,12 +60,21 @@ void registerPub(ros::NodeHandle &n)
     pub_margin_cloud   = n.advertise<sensor_msgs::PointCloud>("/vins_estimator/history_cloud", 1);
     pub_imu_pose       = n.advertise<geometry_msgs::PoseStamped>("/vins_estimator/imu_pose", 5);
 
+    pub_map_init       = n.advertise<geometry_msgs::PoseStamped>("/vins_estimator/init_map_time",1);
+
     cameraposevisual.setScale(1);
     cameraposevisual.setLineWidth(0.05);
     keyframebasevisual.setScale(0.1);
     keyframebasevisual.setLineWidth(0.01);
 }
+void pubInitHeader(const double &t)
+{
+    geometry_msgs::PoseStamped ts;
+    ts.header.stamp          = ros::Time(t);
+    ts.header.frame_id = "map";
 
+    pub_map_init.publish(ts);
+}
 // void pubLatestOdometry(const Eigen::Vector3d &P, const Eigen::Quaterniond &Q,
 //                        const Eigen::Vector3d &V,
 //                       //  const Eigen::Vector3d &A,

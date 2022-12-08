@@ -200,6 +200,14 @@ void MarginalizationInfo::marginalize()
 
     n = pos - m;
 
+    if(m == 0)
+    {   
+        valid = false;
+        printf("Marginalization: unstable tracking...\n");
+        return;
+    }
+    // printf("n: %d \n",n);
+    // printf("m: %d \n",m);
     // ROS_DEBUG("marginalization, pos: %d, m: %d, n: %d, size: %d", pos, m, n,
     // (int)parameter_block_idx.size());
 

@@ -25,6 +25,7 @@
 #include <image_transport/image_transport.h>
 
 extern ros::Publisher pub_odometry;
+extern ros::Publisher pub_map_init;
 extern ros::Publisher pub_path, pub_pose;
 extern ros::Publisher pub_cloud, pub_map;
 extern ros::Publisher pub_key_poses;
@@ -35,7 +36,7 @@ extern ros::Publisher pub_pose_graph;
 extern int            IMAGE_ROW, IMAGE_COL;
 
 void registerPub(ros::NodeHandle &n);
-
+void pubInitHeader(const double &t);
 void pubLatestOdometry(const Eigen::Vector3d &P, const Eigen::Quaterniond &Q,
                        const Eigen::Vector3d &V, const double &t);
 
