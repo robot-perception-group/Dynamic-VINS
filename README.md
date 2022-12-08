@@ -2,6 +2,9 @@
 
 # RGB-D Inertial Odometry for a Resource-restricted Robot in Dynamic Environments
 
+### This fork is made by the FRPG for an upcoming project
+#### yolo_ros was cloned at commit [ebd64](https://github.com/hirokiyokoyama/yolo_ros/commit/ebd649ec16db5a59eb80fed26d500ed3b89d2b36) and slightly modified.
+
 ## 1. Introduction
 **Dynamic-VINS** is a real-time RGB-D Inertial Odometry system for resource-restricted robots in dynamic environments.
 - Dynamic feature recognition by object detection and depth information with the performance comparable to semantic segmentation.
