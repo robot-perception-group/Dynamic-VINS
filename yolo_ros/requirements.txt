@@ -8,7 +8,6 @@ Pillow
 PyYAML>=5.3.1
 scipy>=1.4.1
 tqdm>=4.41.0
-opencv-python
 rospkg
 
 # logging -------------------------------------
