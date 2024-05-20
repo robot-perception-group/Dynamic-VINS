@@ -4,6 +4,7 @@
 
 ### This fork is made by the FRPG for an upcoming project
 #### yolo_ros was cloned at commit [ebd64](https://github.com/hirokiyokoyama/yolo_ros/commit/ebd649ec16db5a59eb80fed26d500ed3b89d2b36) and slightly modified.
+#### if you use this repo please note that there are several hardcoded parameters regarding the focal length that we carried from the original repo. Check the fork difference to spot them.
 
 ## 1. Introduction
 **Dynamic-VINS** is a real-time RGB-D Inertial Odometry system for resource-restricted robots in dynamic environments.
