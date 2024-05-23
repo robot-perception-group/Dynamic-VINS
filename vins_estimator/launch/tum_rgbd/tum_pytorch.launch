@@ -1,16 +1,15 @@
 <launch>
     <arg name="config_path" default="$(find vins_estimator)/../config/tum_rgbd/tum_fr3.yaml" />
     <arg name="vins_path" default="$(find vins_estimator)/../config/../" />
-    <arg name="exp" default="halfsphere" />
-    <arg name="path" default="/home/ebonetto/TUM_bags" />
-    <arg name="bag_path" default="$(arg path)/$(arg exp)" />
+    <arg name="exp" default="halfsphere"/>
+    <arg name="bag_path" default="/home/ebonetto/TUM_bags/$(arg exp)/$(arg exp).bag" />
 
-    <arg name="rgb" default="/my_robot_0/camera_link/1/rgb/image_raw" />
-    <arg name="depth" default="/my_robot_0/camera_link/1/depth/image_raw" />
+    <arg name="rgb" default="/camera/rgb/image_color" />
+    <arg name="depth" default="/camera/depth/image" />
     <remap from="/rgb" to="$(arg rgb)" />
     <remap from="/depth" to="$(arg depth)" />
-    <remap from="/camera/color/image_raw" to="/my_robot_0/camera_link/1/rgb/image_raw" />
-
+    <remap from="/camera/color/image_raw" to="$(arg rgb)"/>
+    
     <include file="$(find yolo_ros)/launch/yolo_service.launch">
     </include>
 
@@ -22,27 +21,15 @@
         <param name="vins_folder" type="string" value="$(arg vins_path)" />
     </node>
 
-    <!--node pkg="nodelet" type="nodelet" name="PoseGraphNodelet" args="load pose_graph/PoseGraphNodelet $(arg manager_name)" output="log">
+    <node pkg="nodelet" type="nodelet" name="PoseGraphNodelet" args="load pose_graph/PoseGraphNodelet $(arg manager_name)" output="log">
         <param name="config_file" type="string" value="$(arg config_path)"/>
         <param name="visualization_shift_x" type="int" value="0"/>
         <param name="visualization_shift_y" type="int" value="0"/>
         <param name="skip_cnt" type="int" value="0"/>
         <param name="skip_dis" type="double" value="0"/>
-    </node-->
+    </node>
 
-    <node pkg="rosbag" type="record" name="my_rosbag" args="-o $(arg exp)   /my_robot_0/camera/pose 
-                                                                            /my_robot_0/odom 
-                                                                            /vins_estimator/camera_pose
-                                                                            /vins_estimator/init_map_time"/> 
+    <node pkg="rosbag" type="record" name="my_rosbag" args="-o $(arg exp) /vins_estimator/camera_pose /vins_estimator/init_map_time"/> 
 
-    <node pkg="rosbag" type="play" name="play_bag" args="-d 20 --clock  $(arg bag_path)/$(arg exp)_0.bag
-                                                                        $(arg bag_path)/$(arg exp)_1.bag
-                                                                        $(arg bag_path)/$(arg exp)_2.bag
-                                                                        $(arg bag_path)/$(arg exp)_3.bag
-                                                                        $(arg bag_path)/$(arg exp)_4.bag
-                                                                        $(arg bag_path)/$(arg exp)_5.bag
-                                                                        $(arg bag_path)/$(arg exp)_6.bag
-                                                                        $(arg bag_path)/$(arg exp)_7.bag
-                                                                        $(arg bag_path)/$(arg exp)_8.bag
-                                                                        $(arg bag_path)/$(arg exp)_9.bag"/>
+    <node pkg="rosbag" type="play" name="play_bag" args="-d 20 -r 0.3 --clock $(arg bag_path)"/>
 </launch>
