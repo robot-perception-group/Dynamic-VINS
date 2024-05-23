@@ -2,7 +2,7 @@
     <arg name="config_path" default="$(find vins_estimator)/../config/tum_rgbd/tum_fr3.yaml" />
     <arg name="vins_path" default="$(find vins_estimator)/../config/../" />
     <arg name="exp" default="halfsphere"/>
-    <arg name="bag_path" default="/home/ebonetto/TUM_bags/$(arg exp)/$(arg exp).bag" />
+    <arg name="bag_path" default="/home/cxu/TUM_walking/$(arg exp)/$(arg exp).bag" />
 
     <arg name="rgb" default="/camera/rgb/image_color" />
     <arg name="depth" default="/camera/depth/image" />

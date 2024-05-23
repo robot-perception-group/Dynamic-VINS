@@ -1,6 +1,6 @@
 %YAML:1.0
 
-num_threads: 4  # 0  Use the max number of threads of your device.
+num_threads: 0  # 0  Use the max number of threads of your device.
                 #    For some devices, like HUAWEI Atlas200, the auto detected max number of threads might not equivalent to the usable numble of threads. (Some cores(threads) might be reserved for other usage(NPU) by system.)
                 # x  It is proper that 1 < x < MAX_THREAD.
                 # For now, this parameter is relevant to grid-detector to run in parallel. 

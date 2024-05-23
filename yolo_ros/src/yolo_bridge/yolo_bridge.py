@@ -45,7 +45,7 @@ class Ros2Yolo:
             sys.path[0] + "/../Thirdparty/yolov5",
             "custom",
             source="local",
-            path=sys.path[0] + "/../model/yolov5s.pt",
+            path=sys.path[0] +"/../model/S-GRADE-COCO-MIX.pt",
         )
         self.model = self.model.cuda() if self.device != "cpu" else self.model
         self.stride = self.model.stride
