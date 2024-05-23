@@ -156,7 +156,7 @@ void GlobalSFM::triangulateTwoFramesWithDepth(int frame0, Eigen::Matrix<double, 
                                          point1_reprojected.y() / point1_reprojected.z());
 
             // std::cout << residual.transpose()<<"norm"<<residual.norm()*460<<endl;
-            if (residual.norm() < 1.0 / 325.9)
+            if (residual.norm() < 1.0 / 460.0)
             {
                 sfm_f[j].state       = true;
                 sfm_f[j].position[0] = point_3d(0);
@@ -299,7 +299,7 @@ bool GlobalSFM::construct(int frame_num, Quaterniond *q, Vector3d *T, int l,
             residual = point1 - Vector2d(point1_reprojected.x() / point1_reprojected.z(),
                                          point1_reprojected.y() / point1_reprojected.z());
 
-            if (residual.norm() < 1.0 / 325.9)
+            if (residual.norm() < 1.0 / 460.0)
             {  // reprojection error
                 sfm_f[j].state       = true;
                 sfm_f[j].position[0] = point_3d(0);
@@ -532,7 +532,7 @@ bool GlobalSFM::constructWithDepth(int frame_num, Quaterniond *q, Vector3d *T, i
             residual = point1 - Vector2d(point1_reprojected.x() / point1_reprojected.z(),
                                          point1_reprojected.y() / point1_reprojected.z());
 
-            if (residual.norm() < 1.0 / 325.9)
+            if (residual.norm() < 1.0 / 460.0)
             {  // reprojection error
                 sfm_f[j].state       = true;
                 sfm_f[j].position[0] = point_3d(0);

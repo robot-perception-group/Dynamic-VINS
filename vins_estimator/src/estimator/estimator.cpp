@@ -1072,13 +1072,13 @@ bool Estimator::relativePose(Matrix3d &relative_R, Vector3d &relative_T, int &l)
                 sum_parallax    = sum_parallax + parallax;
             }
             average_parallax = 1.0 * sum_parallax / int(corres.size());
-            if (average_parallax * 325.9 > 30 &&
+            if (average_parallax * 460.0 > 30 &&
                 m_estimator.solveRelativeRT_PNP(corres, relative_R, relative_T))
             {
                 l = i;
                 ROS_DEBUG("average_parallax %f choose l %d and newest frame to "
                           "triangulate the whole structure",
-                          average_parallax * 325.9, l);
+                          average_parallax * 460.0, l);
                 return true;
             }
         }

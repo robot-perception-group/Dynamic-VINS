@@ -569,7 +569,7 @@ void FeatureManager::triangulateWithDepth(Vector3d _Ps[], Vector3d _tic[], Matri
                 Eigen::Vector2d residual =
                     point1_2d - Vector2d(point1_projected.x() / point1_projected.z(),
                                          point1_projected.y() / point1_projected.z());
-                if (residual.norm() < 10.0 / 325.9)
+                if (residual.norm() < 10.0 / 460.0)
                 {  // this can also be adjust to improve performance
                     Eigen::Vector3d point_r = R2r * point0 + t2r;
 
