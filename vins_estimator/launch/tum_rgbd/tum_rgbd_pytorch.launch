@@ -28,8 +28,4 @@
         <param name="skip_cnt" type="int" value="0"/>
         <param name="skip_dis" type="double" value="0"/>
     </node>
-
-    <node pkg="rosbag" type="record" name="my_rosbag" args="-o $(arg exp) /vins_estimator/camera_pose /vins_estimator/init_map_time"/> 
-
-    <node pkg="rosbag" type="play" name="play_bag" args="-d 20 -r 0.3 --clock $(arg bag_path)"/>
 </launch>
