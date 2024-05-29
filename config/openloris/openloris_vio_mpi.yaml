@@ -15,7 +15,7 @@ output_path: "/home/cxu/dynavins_ws/src/Dynamic_VINS/output"
 
 #RGBD camera Ideal Range
 depth_min_dist: 0.3
-depth_max_dist: 3
+depth_max_dist: 3.5
 fix_depth: 0
 
 frontend_freq: 30 # It should be raised in VO mode(without IMU).
